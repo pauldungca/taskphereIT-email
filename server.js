@@ -92,37 +92,6 @@ postBoth(["/sendOTP", "/api/sendOTP"], async (req, res) => {
   }
 });
 
-const admin = require("firebase-admin");
-
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: "tasksphereit-b53c8",
-      clientEmail:
-        "firebase-adminsdk-abc12@tasksphereit-b53c8.iam.gserviceaccount.com",
-      privateKey:
-        "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCUJDHqRVWAk1qF\ncCA3s7LAMuYoqor7VuSbc9fhmDq+HwllDBjKGYXSZihJ/cbkAnFyAESD8ZyaVcNY\nIS/6qQXuBf00e/RbgC6HWY6jhhVTNfqu/hs/2SmMK10OZMcbaiL4B9Uk4rob3zFr\nPWdZFkbPn5ws9oKANma0qnqZJw8Llz/c07z3cimaQD3rp31/AuxkXaSFXr4q2eUT\n4sPMlxgqB+2cXaj4MRCmBTHE9Orih7IkGVKkUKWribwXWCBEyiB/bF7H88ZOlFy6\nyOYW/Fz/PBL9LcMd693Wq7dePr47/PUrITZ5LuKv+BN2EuhaRlNt8QrVabdb1DtI\n7cSu6yu1AgMBAAECggEAF86uT+g3GrvzoPy5TMJeEHnNl8z6m3RmNl5aXBi3Hg1G\nWP0l8brC0SKWSHfWkhebbDcDS9IVOQ9d3qisuYOW3p8LR3dBOMBDmgBoRjra6/3B\njQRs1Ci9/tcMNC85eVwoBQTbOfuO7cJDgqjCVmSYWi8cLfSq2diETnYUUE8g4Zt9\nMYKvB7xGF9Rygh42DSVkdOu4HH7RkFuYgiEy2D84zoz0E695l4259hBAcqTCldol\n+Jq+CV2BKmyiSwD1+xrmJ7jeclWsrTFf1KB5f9vb4TXB2P5yC6Oj/D0OHDRATXPS\nt5efLV66Y+LYrmffl46O/WwsZAVDC45Z6ghO3KmuuQKBgQDDwn/JisMF1XxvsXma\nF2e6Hgg9diuESFWXeSvkTXvIOckrmt+P+L0RUG/Llc0lMHAB9oAnlRcX/ByZ9Oad\nNNTv9NsuSWhTGhyPs2OS+Nutp7HzDbyBhiZuc5iObvpPPQS3nUxrRdaypdpWw4HN\nw3Zq1H7v59QeeNOqhTQpVossqQKBgQDBum4wQ+J8ICS2b5ZGDieDnsxVH0fJrTWP\nYLbo/UwbGJTJcK/BNwisLnaoUW8w1Dsq4220gkvAhgsq5+CWBpWkLPBO2qBN9wCP\nSOfwBNWXRV4FAo7qPwGVhsq+Mwrv1rWWpQ3BTVFslv1dlLL5iMP5GpTDsbIuCNsP\nxI1XbyMCLQKBgGL3+Tz+f1x6sx+Q3UaPIKzStB3GmXeWTld3Nj6FAdiXhmIaOX6D\nJasUPIDzqjRsCaSkZ+QbFwLUPe2EB/dgl2r9IraC/FBPOjNYYTYTxJRF3MxhnHTr\nSpC6tl0ENF5NHg5qYxE0zLei7ADDdON/N2YJKmfFj9McCP8DuvxPOauJAoGAalh0\n9HnPcmQSwzMuQvayKkaZ1IB/X+59YF+vCOdDR/yOcKYzVNVpJVu8N1m8uAlJEZoX\nNufvvZfXuY3gc3rZ2m3w3NiW9zWIUR+scs20kn25xvZIjb5YmESONyq97jrnI/Mn\nQd23vOyF2UEvnlu9eJlm4KZDMZIa7uTu0fhoN2ECgYEAuTvQiTuVk1BZasCvN7P2\n7ICXqJxr7JOdDD4o5udeF3v5leWAwwdYq+I0uhVvAuEYyZj47fdXohuY1tS4gouo\nBEk1cnEQEuS+yLZneeCzsX54EiTndPFVgqJ4AMO5QthLI/sSEk9+0fmhxkAzgEac\n4MWn7fLZBbEOoz/vCSC/MTs=\n-----END PRIVATE KEY-----\n",
-    }),
-  });
-}
-
-app.post("/api/updatePassword", async (req, res) => {
-  try {
-    const { email, newPassword } = req.body || {};
-    if (!email || !newPassword) {
-      return res.status(400).json({ error: "Missing email or newPassword" });
-    }
-    const user = await admin.auth().getUserByEmail(String(email).trim());
-    await admin.auth().updateUser(user.uid, { password: String(newPassword) });
-    return res.json({ success: true });
-  } catch (err) {
-    console.error("updatePassword error:", err);
-    const msg =
-      err?.errorInfo?.message || err?.message || "Failed to update password";
-    return res.status(400).json({ error: msg });
-  }
-});
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
