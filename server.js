@@ -123,7 +123,7 @@ postBoth(["/sendLogin", "/api/sendLogin"], async (req, res) => {
           <p>Hello <strong>${name || "Instructor"}</strong>,</p>
           <p>We are pleased to invite you to join our platform, TaskSphereIT, as a new instructor. Please click the link below to access the system and get started:</p>
           <div style="text-align:center; margin:32px 0;">
-            <a href="task-sphere-it.vercel.app" style="font-size: 18px; color: #fff; background-color: #3B0304; padding: 12px 24px; border-radius: 6px; text-decoration: none;">Go to TaskSphereIT</a>
+            <a href="http://localhost:5173" style="font-size: 18px; color: #fff; background-color: #3B0304; padding: 12px 24px; border-radius: 6px; text-decoration: none;">Go to TaskSphereIT</a>
           </div>
           <div class="alert">
             If you didn't request this invitation, please ignore this email or contact support.
